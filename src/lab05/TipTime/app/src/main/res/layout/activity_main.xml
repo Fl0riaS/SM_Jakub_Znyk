@@ -25,6 +25,7 @@
         app:layout_constraintTop_toBottomOf="@id/cost_of_service" />
 
     <RadioGroup
+        android:id="@+id/tip_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +50,35 @@
             android:layout_height="wrap_content"
             android:text="Okay (15%)" />
 
-
     </RadioGroup>
+
+    <Switch
+        android:id="@+id/round_up_switch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Round up tip?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tip_options"
+        app:layout_constraintTop_toBottomOf="@id/tip_options"
+        android:checked="true" />
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/calculate_button"
+        android:text="Calculate"
+        app:layout_constraintTop_toBottomOf="@id/round_up_switch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tip_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calculate_button"
+        android:text="Tip Amount" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
