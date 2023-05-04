@@ -10,12 +10,12 @@ import com.example.android.unscramble.ui.game.allWordsList
  * ViewModel containing the app data and methods to process the data
  */
 class GameViewModel : ViewModel(){
-    private var _score = 0
-    val score: Int
+    private val _score = MutableLiveData(0)
+    val score: LiveData<Int>
         get() = _score
 
-    private var _currentWordCount = 0
-    val currentWordCount: Int
+    private val _currentWordCount = MutableLiveData(0)
+    val currentWordCount: LiveData<Int>
         get() = _currentWordCount
 
     private val _currentScrambledWord = MutableLiveData<String>()
@@ -51,28 +51,31 @@ class GameViewModel : ViewModel(){
             getNextWord()
         } else {
             _currentScrambledWord.value = String(tempWord)
-            ++_currentWordCount
+            _currentWordCount.value = (_currentWordCount.value)?.inc()
             wordsList.add(currentWord)
         }
+
     }
 
     /*
     * Re-initializes the game data to restart the game.
     */
     fun reinitializeData() {
-        _score = 0
-        _currentWordCount = 0
+        _score.value = 0
+        _currentWordCount.value = 0
         wordsList.clear()
         getNextWord()
     }
+
 
 
     /*
     * Increases the game score if the player's word is correct.
     */
     private fun increaseScore() {
-        _score += SCORE_INCREASE
+        _score.value = (_score.value)?.plus(SCORE_INCREASE)
     }
+
 
     /*
     * Returns true if the player word is correct.
@@ -90,9 +93,10 @@ class GameViewModel : ViewModel(){
     * Returns true if the current word count is less than MAX_NO_OF_WORDS
     */
     fun nextWord(): Boolean {
-        return if (_currentWordCount < MAX_NO_OF_WORDS) {
+        return if (_currentWordCount.value!! < MAX_NO_OF_WORDS) {
             getNextWord()
             true
         } else false
     }
+
 }
