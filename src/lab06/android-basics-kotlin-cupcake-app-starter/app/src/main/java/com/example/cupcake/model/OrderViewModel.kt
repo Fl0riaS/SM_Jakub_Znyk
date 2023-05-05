@@ -21,6 +21,9 @@ class OrderViewModel : ViewModel() {
     private val _quantity = MutableLiveData<Int>()
     val quantity: LiveData<Int> = _quantity
 
+    private val _isSameDeliveryPossible = MutableLiveData<Boolean>()
+    val isSameDeliveryPossible: LiveData<Boolean> = _isSameDeliveryPossible
+
     private val _flavor = MutableLiveData<String>()
     val flavor: LiveData<String> = _flavor
 
@@ -38,6 +41,7 @@ class OrderViewModel : ViewModel() {
 
     fun setFlavor(desiredFlavor: String) {
         _flavor.value = desiredFlavor
+        _isSameDeliveryPossible.value = desiredFlavor != "Special Flavor"
     }
 
     fun setDate(pickupDate: String) {
