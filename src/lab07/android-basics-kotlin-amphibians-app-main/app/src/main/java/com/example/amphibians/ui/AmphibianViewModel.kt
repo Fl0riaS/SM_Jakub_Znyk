@@ -42,7 +42,7 @@ class AmphibianViewModel : ViewModel() {
 
     // TODO: Create a function that gets a list of amphibians from the api service and sets the
     //  status via a Coroutine
-    fun getAmphibianList(){
+    fun getAmphibiansList(){
         viewModelScope.launch {
             _status.value = AmphibianApiStatus.LOADING
             try {
