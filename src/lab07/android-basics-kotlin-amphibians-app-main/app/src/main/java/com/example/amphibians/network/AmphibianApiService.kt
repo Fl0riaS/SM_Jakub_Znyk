@@ -15,15 +15,32 @@
  */
 package com.example.amphibians.network
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.http.GET
+
 // TODO: Create a property for the base URL provided in the codelab
+val baseUrl = "https://developer.android.com/courses/pathways/android-basics-kotlin-unit-4-pathway-2/"
 
 // TODO: Build the Moshi object with Kotlin adapter factory that Retrofit will be using to parse JSON
+val moshiObject = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
 // TODO: Build a Retrofit object with the Moshi converter
+val retrofitObject = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshiObject)).baseUrl(
+    baseUrl).build()
 
 interface AmphibianApiService {
     // TODO: Declare a suspended function to get the list of amphibians
+    @GET("android-basics-kotlin-unit-4-pathway-2-project-api.json")
+    suspend fun getAmphibiansList(): List<Amphibian>
 }
 
 // TODO: Create an object that provides a lazy-initialized retrofit service
+object AmphibiansApi {
+    val retrofitService : AmphibianApiService by lazy {
+        retrofitObject.create(AmphibianApiService::class.java)
+    }
+}
 
